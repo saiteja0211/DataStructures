@@ -1,37 +1,25 @@
 /* 
- Depth First Traversal: go to deep from root to leaf
- Uses a data structure: Stack
+ Breath First Traversal: go to deep from root to leaf
+ Uses a data structure: queue
  */
 
-function depthFirstTraverse(node) {
+function breathFirstTraverse(node) {
   if (!node) {
     return [];
   }
-  const myStack = [node];
+  const myQueue = [node];
   const traversedNodes = [];
-  while (myStack.length) {
-    const currentNode = myStack.pop();
-    if (currentNode.right) {
-      myStack.push(currentNode.right);
-    }
+  while (myQueue.length) {
+    const currentNode = myQueue.shift();
     if (currentNode.left) {
-      myStack.push(currentNode.left);
+      myQueue.push(currentNode.left);
     }
-
+    if (currentNode.right) {
+      myQueue.push(currentNode.right);
+    }
     traversedNodes.push(currentNode.value);
   }
   return traversedNodes;
-}
-
-// recursive
-
-function depthFirstTraverse2(node) {
-  if (!node) {
-    return [];
-  }
-  const leftValues = depthFirstTraverse2(node.left);
-  const rightValues = depthFirstTraverse2(node.right);
-  return [node.value, ...leftValues, ...rightValues];
 }
 
 class Node {
@@ -66,5 +54,4 @@ e.right = g;
     /    \
    f      g
 */
-console.log(depthFirstTraverse(root));
-console.log(depthFirstTraverse2(root));
+console.log(breathFirstTraverse(root));
